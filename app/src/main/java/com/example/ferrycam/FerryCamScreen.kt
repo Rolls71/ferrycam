@@ -1,8 +1,8 @@
 package com.example.ferrycam
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,16 +14,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 enum class FerryCamScreen {
-    // Start screen has been disabled
-    // Change backstack and start screen to enable
-    Start,
+    Settings,
     Stream
 }
 
 @Composable
 fun FerryCamAppBar(
     canNavigateBack: Boolean,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
+    navigateSettings: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(
@@ -36,8 +35,15 @@ fun FerryCamAppBar(
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.back_button)
+                    )
+                }
+            } else {
+                IconButton(onClick = navigateSettings) {
+                    Icon(
                         imageVector = Icons.Filled.Settings,
-                        contentDescription = stringResource(R.string.settings_button).uppercase()
+                        contentDescription = stringResource(R.string.settings_button)
                     )
                 }
             }
@@ -50,45 +56,35 @@ fun FerryCamApp() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     FerryCamScreen.valueOf(
-        // Change to Start to enable Start screen
-        backStackEntry?.destination?.route ?: FerryCamScreen.Start.name
+        backStackEntry?.destination?.route ?: FerryCamScreen.Stream.name
     )
     NavHost(
         navController = navController,
-        // Change to Start to enable Start screen
-        startDestination = FerryCamScreen.Start.name,
+        startDestination = FerryCamScreen.Stream.name,
         modifier = Modifier
     ) {
-        composable(route = FerryCamScreen.Start.name) {
-            StartScreen(onStartButtonClicked = {
-                navController.navigate(FerryCamScreen.Stream.name)
-            })
+        composable(route = FerryCamScreen.Settings.name) {
+            SettingsScreen()
         }
         composable(route = FerryCamScreen.Stream.name) {
             StreamScreen()
         }
     }
-    Box( modifier = Modifier.fillMaxSize() ) {
-        FerryCamAppBar(
-            canNavigateBack = (navController.previousBackStackEntry != null)
-        ) { navController.navigateUp() }
-    }
 
     Scaffold(
         topBar = { FerryCamAppBar(
-            canNavigateBack = (navController.previousBackStackEntry != null)
-        ) { navController.navigateUp() }
+            canNavigateBack = (navController.previousBackStackEntry != null),
+            navigateUp = { navController.navigateUp() },
+            navigateSettings = { navController.navigate(FerryCamScreen.Settings.name)}
+        )
         },
     ) {
         NavHost(
             navController = navController,
-            // Change to Start to enable Start screen
-            startDestination = FerryCamScreen.Start.name,
+            startDestination = FerryCamScreen.Stream.name,
         ) {
-            composable(route = FerryCamScreen.Start.name) {
-                StartScreen(onStartButtonClicked = {
-                    navController.navigate(FerryCamScreen.Stream.name)
-                })
+            composable(route = FerryCamScreen.Settings.name) {
+                SettingsScreen()
             }
             composable(route = FerryCamScreen.Stream.name) {
                 StreamScreen()

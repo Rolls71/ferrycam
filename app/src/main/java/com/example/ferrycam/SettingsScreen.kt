@@ -1,7 +1,7 @@
 package com.example.ferrycam
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,8 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun StartScreen(
-    onStartButtonClicked: () -> Unit,
+fun SettingsScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -21,11 +20,9 @@ fun StartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(
-            onClick = onStartButtonClicked,
-            modifier.widthIn(min = 250.dp)
-        ) {
-            Text(stringResource(R.string.start_stream))
-        }
+        Text(
+            stringResource(R.string.settings_button).uppercase(),
+            color = MaterialTheme.colors.onPrimary
+        )
     }
 }
