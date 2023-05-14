@@ -22,7 +22,7 @@ fun SettingsScreen(
     ) {
         Text(
             stringResource(R.string.settings_button).uppercase(),
-            color = MaterialTheme.colors.onPrimary
+            color = MaterialTheme.colors.onBackground
         )
     }
 }

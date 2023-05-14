@@ -1,7 +1,12 @@
 package com.example.ferrycam
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,7 +22,7 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 
 @Composable
 fun StreamScreen() {
-    var selectedButton by remember { mutableStateOf(0) }
+    var viewDefault by remember { mutableStateOf(true) }
     /*
     Box(
         modifier = Modifier
@@ -48,22 +53,28 @@ fun StreamScreen() {
             }
         }
     } else {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            when (selectedButton) {
-                1 -> StreamView(stringResource(R.string.settlement_queue_url))
-                else -> StreamView(stringResource(R.string.settlement_ferry_url))
-            }
+        Button(
+            contentPadding = PaddingValues(0.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background),
+            onClick = { viewDefault = !viewDefault }) {
             Box(
-                modifier = Modifier
-                    .width(250.dp)
-                    .height(100.dp)
-                    .align(Alignment.BottomEnd)
+                modifier = Modifier.fillMaxSize()
             ) {
-                when (selectedButton) {
-                    0 -> StreamView(stringResource(R.string.settlement_queue_url))
+                when (viewDefault) {
+                    false -> StreamView(stringResource(R.string.settlement_queue_url))
                     else -> StreamView(stringResource(R.string.settlement_ferry_url))
+                }
+                Box(
+                    modifier = Modifier
+                        .width(300.dp)
+                        .height(100.dp)
+                        .align(Alignment.BottomEnd)
+                        .border(BorderStroke(1.dp, MaterialTheme.colors.secondary))
+                ) {
+                    when (viewDefault) {
+                        true -> StreamView(stringResource(R.string.settlement_queue_url))
+                        else -> StreamView(stringResource(R.string.settlement_ferry_url))
+                    }
                 }
             }
         }
