@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun StartScreen(
-    onStartOrderButtonClicked: () -> Unit,
+    onStartButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -22,7 +22,7 @@ fun StartScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Button(
-            onClick = onStartOrderButtonClicked,
+            onClick = onStartButtonClicked,
             modifier.widthIn(min = 250.dp)
         ) {
             Text(stringResource(R.string.start_stream))
