@@ -7,4 +7,13 @@
     <string name="settlement_queue_button">Queue</string>
     <string name="back_button">Back</string>
     <string name="settings_button">Settings</string>
+    <string name="allow_notifications">Allow notifications</string>
+    <string name="ferry_down_notifications">Ferry down alerts</string>
+    <string name="ferry_down_description">Alert me when the ferry stops due to or tide or monthly servicing</string>
+    <string name="ferry_traffic_notifications">High ferry traffic alerts</string>
+    <string name="ferry_traffic_description">Alert me when there is enough traffic to cause delays</string>
+    <string name="floating_notifications">Floating notifications</string>
+    <string name="lock_screen_notifications">Lock screen notifications</string>
+    <string name="sound_notifications">Sound</string>
+    <string name="vibration_notifications">Vibration</string>
 </resources>
